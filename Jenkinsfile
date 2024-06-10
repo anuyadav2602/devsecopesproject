@@ -17,6 +17,26 @@ pipeline {
 				}
 			}
     }
+	stage('Build') { 
+            steps { 
+               withDockerRegistry([credentialsId: "docker_login", url: "http://3.107.10.94:8081/manage/credentials/store/system/domain/_/"]) {
+                 script{
+                 app =  docker.build("asg")
+                 }
+               }
+            }
+    }
+
+	stage('Push') {
+            steps {
+                script{
+                    docker.withRegistry('https://ap-southeast-2.console.aws.amazon.com/ecr/private-registry/repositories?region=ap-southeast-2:aws-credentials') {
+                    app.push("latest")
+                    }
+                }
+            }
+    	}
+
    }
 }
 

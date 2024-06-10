@@ -19,7 +19,7 @@ pipeline {
     }
 	stage('Build') { 
             steps { 
-               withDockerRegistry([credentialsId: "dockerlogin", url: "http://3.107.10.94:8081/manage/credentials/store/system/domain/_/credential/dockerlogin"]) {
+               withDockerRegistry([credentialsId: "dockerlogin", url: "http://471112694879.dkr.ecr.ap-southeast-2.amazonaws.com/asg"]) {
                  script{
                  app =  docker.build("asg")
                  }

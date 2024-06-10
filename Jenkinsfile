@@ -33,7 +33,10 @@ pipeline {
                     docker.withRegistry('http://471112694879.dkr.ecr.ap-southeast-2.amazonaws.com/asg','ecr:ap-southeast-2:aws_credentials') {
                     app.push("latest")
                     }
-					stage('Kubernetes Deployment of ASG Bugg Web Application') {
+				}
+			}
+	}
+	stage('Kubernetes Deployment of ASG Bugg Web Application') {
 	   steps {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
 		  sh('kubectl delete all --all -n devsecops')
@@ -56,13 +59,15 @@ pipeline {
 		    }
 	     }
        } 
-
-                }
-            }
-    	}
-
    }
 }
+
+                
+            
+    	
+
+   
+
 
 
 
